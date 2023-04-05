@@ -1,6 +1,7 @@
 // fetch api 
 
 // 1.promise chaininig
+// if required
 // const options = {
 //     method: 'GET',
 //     header: {
@@ -17,43 +18,25 @@
 
 ////create function to get a new advice.
 window.addEventListener("load", function () {
-    // do things after the DOM loads fully
-    console.log("Everything is loaded");
+    const adviceNumber = document.getElementById('number');
+    const adviceContent = document.getElementById('quote');
+    const aButton = document.querySelector('#abutton');
 
-function fetchNewAdvice() {
-    console.log('hi');
-    fetch('https://api.adviceslip.com/advice')
-        .then(function (response) { return (response) })
-        .then(function (adviceObject) {
-            const { slip: { ids, advice } } = adviceObject;
-            updateAdvice(ids, advice);
-
-        })
-        .catch(function (err) {
-            console.warn('oops', err)
-        })
-};
-
-// document.addEventListener('DOMContentLoaded', () =>{
-
-
-const adviceTitle = document.getElementById('number');
-const adviceContent = document.getElementById('quote');
-const aButton = document.querySelector('#abutton');
-console.log(aButton);
-
-
-// function to update advice number
-function updateAdvice(ida, adv) {
-    adviceTitle.innerHTML = ida;
-    adviceContent.innerHTML = adv;
-}
+    function fetchNewAdvice() {
+      return fetch('https://api.adviceslip.com/advice')
+      .then(response => response.json(),
+      )
+      .then (
+      response => {
+        const id = response.slip.id;
+        const advice = response.slip.advice; 
+        adviceNumber.innerHTML = id;
+        adviceContent.innerHTML = advice;      
+      })
+      .catch(err =>console.warn('oops', err) )          
+    };
 
     aButton?.addEventListener('click', () => {
         fetchNewAdvice()
     });
-
-
-
-});
-// fetchNewAdvice();
+ });
