@@ -30,7 +30,7 @@ window.addEventListener("load", function () {
       response => {
         const id = response.slip.id;
         const advice = response.slip.advice; 
-        adviceNumber.innerHTML = id;
+        adviceNumber.innerHTML = (` # ${id}`)
         adviceContent.innerHTML = advice;      
       })
       .catch(err =>console.warn('oops', err) )          
